@@ -1,0 +1,64 @@
+// schema.prisma
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://root:admin2140@localhost:5432/book_db_new"
+}
+
+model Genre {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  @@map("genres")
+}
+
+model Author {
+  id   Int    @id @default(autoincrement())
+  name String
+  Book Book[]
+
+  @@map("authors")
+}
+
+model Book {
+  id           Int        @id @default(autoincrement())
+  name         String
+  names        String[]
+  description  String
+  view_count   Int        @default(0)
+  follow_count Int        @default(0)
+  release_date Int
+  updated_date Int
+  author_id    Int?
+  genres       Int[]
+  author       Author?    @relation(fields: [author_id], references: [id])
+  status       BookStatus
+  type         BookType
+
+  @@map("books")
+}
+
+model Chapter {
+  id            Int      @id @default(autoincrement())
+  name          String
+  content       String?
+  images        String[]
+  image_indexes Int[]
+
+  @@map("chapters")
+}
+
+enum BookStatus {
+  ON_GOING
+  COMPLETED
+}
+
+enum BookType {
+  COMIC
+  NOVEL
+}
