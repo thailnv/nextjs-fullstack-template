@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://root:admin2140@localhost:5432/book_db_new"
+  url      = "postgresql://root:admin@localhost:5432/book_db_new"
 }
 
 model Genre {
